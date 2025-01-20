@@ -17,6 +17,9 @@ public class Reto1 {
 		Random r = new Random();
 		List<Producto> productos = new ArrayList<>();
 		rellenaProductos(productos, sc, r);
+		for (Producto t : productos) {
+			System.out.println(t);
+		}
 		List<Empleado> empleados = new ArrayList<>();
 		rellenaEmpleados(empleados, r);
 		List<Tienda> tiendas = new ArrayList<>();
@@ -25,7 +28,8 @@ public class Reto1 {
 	}
 
 	public static void rellenaProductos(List<Producto> productos, Scanner sc, Random r) {
-		for (int i = 0; i < funciones.dimeEntero("¿Cuantos productos quieres añadir?", sc); i++) {
+		int pr=funciones.dimeEntero("¿Cuantos productos quieres añadir?", sc);
+		for (int i = 1; i < pr; i++) {
 			Producto p = new Producto();
 			p.setId(i);
 			p.setNombre("Producto " + i);
