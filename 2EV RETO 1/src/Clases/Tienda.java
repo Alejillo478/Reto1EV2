@@ -53,6 +53,10 @@ public class Tienda {
 		this.listaProductos = listaProductos;
 	}
 
+	public void addEmpleado(Producto p) {
+		listaProductos.add(p);
+	}
+
 	@Override
 	public String toString() {
 		return "Tienda [id=" + id + ", nombre=" + nombre + ", gerente=" + gerente + ", listaProductos=" + listaProductos

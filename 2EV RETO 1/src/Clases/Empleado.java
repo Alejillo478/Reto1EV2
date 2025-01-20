@@ -28,8 +28,8 @@ public class Empleado {
 		return antig;
 	}
 
-	public void setAntig(int antig) {
-		this.antig = antig;
+	public void setAntig(double d) {
+		this.antig = d;
 	}
 
 	public double getSueldo() {
