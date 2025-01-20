@@ -2,6 +2,7 @@ package Clases;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Tienda {
 	private int id;
@@ -52,11 +53,25 @@ public class Tienda {
 	public void setListaProductos(List<Producto> listaProductos) {
 		this.listaProductos = listaProductos;
 	}
+	
 
 	@Override
 	public String toString() {
 		return "Tienda [id=" + id + ", nombre=" + nombre + ", gerente=" + gerente + ", listaProductos=" + listaProductos
 				+ "]";
+	}
+
+	public void reponerProductos(int cantidad) {
+		// TODO Auto-generated method stub
+		    Random random = new Random();
+		    for (int i = 0; i < cantidad; i++) {
+		        int idProducto = listaProductos.size() + 1; 
+		        String nombreProducto = "Producto" + idProducto; 
+		        double precio = 10 + (random.nextDouble() * 90); 
+		        Producto producto = new Producto(idProducto, nombreProducto, precio);
+		        listaProductos.add(producto); 
+		    }
+		
 	}
 
 }
