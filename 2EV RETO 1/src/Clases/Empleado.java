@@ -40,7 +40,7 @@ public class Empleado {
 		this.sueldo = sueldoAnt(antig);
 	}
 
-	public double sueldoAnt(int antig) {
+	public double sueldoAnt(double antig) {
 		if (antig < 5) {
 			return sueldo = 1000;
 		} else if (antig > 5 && antig < 11) {
