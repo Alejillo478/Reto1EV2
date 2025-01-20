@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import Clases.Cliente;
 import Clases.Empleado;
 import Clases.Producto;
 import Clases.Tienda;
@@ -17,18 +18,16 @@ public class Reto1 {
 		Random r = new Random();
 		List<Producto> productos = new ArrayList<>();
 		rellenaProductos(productos, sc, r);
-		for (Producto t : productos) {
-			System.out.println(t);
-		}
 		List<Empleado> empleados = new ArrayList<>();
 		rellenaEmpleados(empleados, r);
 		List<Tienda> tiendas = new ArrayList<>();
-		rellenaTiendas(tiendas, empleados);
+		rellenaTiendas(tiendas, empleados, productos);
+		Cliente cliente=new Cliente();
 		menu(sc);
 	}
 
 	public static void rellenaProductos(List<Producto> productos, Scanner sc, Random r) {
-		int pr=funciones.dimeEntero("¿Cuantos productos quieres añadir?", sc);
+		int pr = funciones.dimeEntero("¿Cuantos productos quieres añadir?", sc);
 		for (int i = 1; i < pr; i++) {
 			Producto p = new Producto();
 			p.setId(i);
@@ -47,7 +46,7 @@ public class Reto1 {
 		}
 	}
 
-	public static void rellenaTiendas(List<Tienda> tiendas, List<Empleado> empleados) {
+	public static void rellenaTiendas(List<Tienda> tiendas, List<Empleado> empleados, List<Producto> productos) {
 
 		for (int i = 1; i < 6; i++) {
 			Tienda t = new Tienda();
@@ -56,12 +55,20 @@ public class Reto1 {
 			for (Empleado e : empleados) {
 				t.setEmpleado(e);
 			}
+			t.setListaProductos(productos);
 		}
 
 	}
 
-	public static void reponerProductos(List<Producto> productos, List<Tienda> tiendas) {
-
+	public static void reponerProductos(List<Tienda> tiendas, List<Producto> productos, Scanner sc,Random r) {
+		//recibir lista de compra
+		
+		//borrar productos comprados
+		
+		//revisar si la lista de productos tiene <5 para reponer automaticamente
+		if(productos.size()<5) {
+			rellenaProductos(productos,sc,r);
+		}
 	}
 
 	public static void menu(Scanner sc) {
