@@ -25,7 +25,7 @@ public class Reto1 {
 		for (int i=1;i<21;i++) {
 			Empleado empleado=new Empleado();
 			empleado.setNombre("Empleado "+i);
-			empleado.setAntig(r.nextDouble(1,21));
+			empleado.setAntig((int) r.nextDouble(1,21));
 			empleado.setSueldo(empleado.getAntig());
 			empleados.add(empleado);
 		}
