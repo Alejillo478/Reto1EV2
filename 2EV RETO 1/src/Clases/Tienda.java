@@ -66,16 +66,26 @@ public class Tienda {
 	}
 
 	public void reponerProductos(int cantidad) {
-		// TODO Auto-generated method stub
-		    Random random = new Random();
+		    Random r = new Random();
 		    for (int i = 0; i < cantidad; i++) {
 		        int idProducto = listaProductos.size() + 1; 
 		        String nombreProducto = "Producto" + idProducto; 
-		        double precio = 10 + (random.nextDouble() * 90); 
+		        double precio = 10 + (r.nextDouble() * 90); 
 		        Producto producto = new Producto(idProducto, nombreProducto, precio);
 		        listaProductos.add(producto); 
 		    }
 		
 	}
+	 public Producto venderProducto() {
+	        if (listaProductos.isEmpty()) {
+	            return null;
+	        }
+	        Producto vendido = listaProductos.remove(0);
+	        if (listaProductos.size() < 5) {
+	            reponerProductos(5);
+	        }
+	        return vendido;
+	 }
+
 
 }

@@ -23,8 +23,25 @@ public class Reto1 {
 		List<Tienda> tiendas = new ArrayList<>();
 		rellenaTiendas(tiendas, empleados, productos);
 		Cliente cliente=new Cliente();
+		rellenaCliente(cliente,tiendas);
+		
 		menu(sc);
 	}
+	private static void rellenaCliente(Cliente cliente,List<Tienda> tiendas) {
+        generarComprasIniciales(cliente, (List<Tienda>) tiendas);
+
+	}
+	private static void generarComprasIniciales(Cliente cliente, List<Tienda> tiendas) {
+		Random r = new Random();
+        int numTiendas = r.nextInt(tiendas.size()) + 1;
+        for (int i = 0; i < numTiendas; i++) {
+            Tienda tienda = tiendas.get(r.nextInt(tiendas.size()));
+            int numProductos = r.nextInt(3) + 1;
+
+            for (int j = 0; j < numProductos; j++) {
+                cliente.comprarProducto(tienda); 
+            }
+        }}
 
 	public static void rellenaProductos(List<Producto> productos, Scanner sc, Random r) {
 		int pr = funciones.dimeEntero("¿Cuantos productos quieres añadir?", sc);
@@ -60,16 +77,6 @@ public class Reto1 {
 
 	}
 
-	public static void reponerProductos(List<Tienda> tiendas, List<Producto> productos, Scanner sc,Random r) {
-		//recibir lista de compra
-		
-		//borrar productos comprados
-		
-		//revisar si la lista de productos tiene <5 para reponer automaticamente
-		if(productos.size()<5) {
-			rellenaProductos(productos,sc,r);
-		}
-	}
 
 	public static void menu(Scanner sc) {
 		int opcion = 0;

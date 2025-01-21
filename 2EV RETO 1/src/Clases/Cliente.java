@@ -35,15 +35,10 @@ public class Cliente {
 		this.listaCompras = listaCompras;
 	}
 
-	public void addCompra(Tienda t, Producto p) {
-		if (listaCompras.containsKey(t)) {
-			List<Producto> productos = listaCompras.get(t);
-			productos.add(p);
-			listaCompras.replace(t, productos);
-		} else {
-			List<Producto> productos = new ArrayList<>();
-			productos.add(p);
-			listaCompras.put(t, productos);
+	public void comprarProducto(Tienda tienda) {
+		Producto producto = tienda.venderProducto();
+		if (producto != null) {
+			listaCompras.computeIfAbsent(tienda, k -> new ArrayList<>()).add(producto);
 		}
 	}
 
