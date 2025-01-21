@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Cliente {
 	private String nombre;
-	private Map<Tienda, List<Producto>> listaCompras;
+	private HashMap<Tienda, List<Producto>> listaCompras;
 
 	public Cliente() {
 		this.listaCompras = new HashMap<>();
@@ -27,18 +27,17 @@ public class Cliente {
 		this.nombre = nombre;
 	}
 
-	public Map<Tienda, List<Producto>> getListaCompras() {
+	public HashMap<Tienda, List<Producto>> getListaCompras() {
 		return listaCompras;
 	}
 
-	public void setListaCompras(Map<Tienda, List<Producto>> listaCompras) {
+	public void setListaCompras(HashMap<Tienda, List<Producto>> listaCompras) {
 		this.listaCompras = listaCompras;
 	}
 
-	public void comprarProducto(Tienda tienda) {
-		Producto producto = tienda.venderProducto();
-		if (producto != null) {
-			listaCompras.computeIfAbsent(tienda, k -> new ArrayList<>()).add(producto);
+	public void comprarProducto(Tienda tienda, Producto productoComprado) {
+		if (productoComprado != null) {
+			listaCompras.computeIfAbsent(tienda, k -> new ArrayList<>()).add(productoComprado);
 		}
 	}
 

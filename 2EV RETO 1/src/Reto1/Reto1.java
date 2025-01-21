@@ -5,11 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import Clases.Cliente;
-import Clases.Empleado;
-import Clases.Producto;
-import Clases.Tienda;
-import Clases.funciones;
+import Clases.*;
 
 public class Reto1 {
 
@@ -25,10 +21,10 @@ public class Reto1 {
 		Cliente cliente=new Cliente();
 		rellenaCliente(cliente,tiendas);
 		
-		menu(sc);
+		menu(sc, tiendas, cliente, empleados);
 	}
 	private static void rellenaCliente(Cliente cliente,List<Tienda> tiendas) {
-        generarComprasIniciales(cliente, (List<Tienda>) tiendas);
+        generarComprasIniciales(cliente, tiendas);
 
 	}
 	private static void generarComprasIniciales(Cliente cliente, List<Tienda> tiendas) {
@@ -39,17 +35,18 @@ public class Reto1 {
             int numProductos = r.nextInt(3) + 1;
 
             for (int j = 0; j < numProductos; j++) {
-                cliente.comprarProducto(tienda); 
+                cliente.comprarProducto(tienda, tienda.venderProducto());
             }
         }}
 
 	public static void rellenaProductos(List<Producto> productos, Scanner sc, Random r) {
-		int pr = funciones.dimeEntero("¿Cuantos productos quieres añadir?", sc);
+		int pr = funciones.dimeEntero("ï¿½Cuantos productos quieres aï¿½adir?", sc);
 		for (int i = 1; i < pr; i++) {
 			Producto p = new Producto();
 			p.setId(i);
 			p.setNombre("Producto " + i);
 			p.setPrecio(r.nextDouble(10, 101));
+			productos.add(p);
 		}
 	}
 
@@ -64,37 +61,45 @@ public class Reto1 {
 	}
 
 	public static void rellenaTiendas(List<Tienda> tiendas, List<Empleado> empleados, List<Producto> productos) {
-
+		Random r = new Random();
 		for (int i = 1; i < 6; i++) {
 			Tienda t = new Tienda();
 			t.setId(i);
 			t.setNombre("Tienda " + i);
-			for (Empleado e : empleados) {
-				t.setEmpleado(e);
+			for (int j = 0; j < 5; j++) {
+				t.setEmpleado(empleados.get(r.nextInt(empleados.size())));
 			}
+//			for (Empleado e : empleados) {
+//				t.setEmpleado(e);
+//			}
 			t.setListaProductos(productos);
+			tiendas.add(t);
 		}
-
 	}
 
-
-	public static void menu(Scanner sc) {
-		int opcion = 0;
+	public static void menu(Scanner sc, List<Tienda> tiendas, Cliente cliente, List<Empleado> empleados) {
+		int opcion;
 		do {
-			opcion = funciones.dimeEntero("1 - Ver tiendas\r\n" + "2 - Comprar\r\n" + "3 - Mostrar compras\r\n"
-					+ "4 - Realizar una queja\r\n" + "5 - Salir\r\n", sc);
+			opcion = funciones.dimeEntero("""
+                    1 - Ver tiendas\r
+                    2 - Comprar\r
+                    3 - Mostrar compras\r
+                    4 - Realizar una queja\r
+                    5 - Salir\r
+                    """, sc);
 			switch (opcion) {
 			case 1:
-
+				Funciones1.mostrarTodasLasTiendas(tiendas);
 				break;
 			case 2:
-
+				Funciones1.comprarProducto(Funciones1.seleccionarTiendaPorId(tiendas),
+						cliente);
 				break;
 			case 3:
-
+				Funciones2.mostrarCompras(cliente);
 				break;
 			case 4:
-
+				Funciones2.realizarQueja(tiendas, empleados);
 				break;
 			}
 		} while (opcion != 5);
