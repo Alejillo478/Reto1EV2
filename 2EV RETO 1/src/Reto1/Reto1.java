@@ -12,12 +12,10 @@ public class Reto1 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Random r = new Random();
-		List<Producto> productos = new ArrayList<>();
-		rellenaProductos(productos, sc, r);
 		List<Empleado> empleados = new ArrayList<>();
 		rellenaEmpleados(empleados, r);
 		List<Tienda> tiendas = new ArrayList<>();
-		rellenaTiendas(tiendas, empleados, productos);
+		rellenaTiendas(tiendas, empleados, sc, r);
 		Cliente cliente=new Cliente();
 		rellenaCliente(cliente,tiendas);
 		
@@ -40,8 +38,7 @@ public class Reto1 {
         }}
 
 	public static void rellenaProductos(List<Producto> productos, Scanner sc, Random r) {
-		int pr = funciones.dimeEntero("�Cuantos productos quieres a�adir?", sc);
-		for (int i = 1; i < pr; i++) {
+		for (int i = 1; i < r.nextInt(2, 12); i++) {
 			Producto p = new Producto();
 			p.setId(i);
 			p.setNombre("Producto " + i);
@@ -60,9 +57,10 @@ public class Reto1 {
 		}
 	}
 
-	public static void rellenaTiendas(List<Tienda> tiendas, List<Empleado> empleados, List<Producto> productos) {
-		Random r = new Random();
+	public static void rellenaTiendas(List<Tienda> tiendas, List<Empleado> empleados, Scanner sc, Random r) {
 		for (int i = 1; i < 6; i++) {
+			List<Producto> productos = new ArrayList<>();
+			rellenaProductos(productos, sc, r);
 			Tienda t = new Tienda();
 			t.setId(i);
 			t.setNombre("Tienda " + i);
@@ -96,7 +94,7 @@ public class Reto1 {
 						cliente);
 				break;
 			case 3:
-				Funciones2.mostrarCompras(cliente);
+				Funciones2.mostrarCompras();
 				break;
 			case 4:
 				Funciones2.realizarQueja(tiendas, empleados);

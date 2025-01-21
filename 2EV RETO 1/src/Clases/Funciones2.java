@@ -1,19 +1,23 @@
 package Clases;
 
+import Reto1.Funciones1;
+
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Funciones2 {
-    public static void mostrarCompras(Cliente cliente){
-        HashMap<Tienda, List<Producto>> compra = cliente.getListaCompras();
+    public static void mostrarCompras(){
         double total = 0.0;
-        for (List<Producto> productos : compra.values()){
-           for (Producto p : productos){
-               System.out.println(p);
-               total += p.getPrecio();
-           }
+        HashMap<Tienda, List<Producto>> mapa = Funciones1.productosComprados;
+        for (Tienda t : mapa.keySet()){
+               System.out.println("Has comprado estos productos: " + mapa.get(t)+
+                       " en la tienda: "+ t.getNombre());
+               for (Producto p : mapa.get(t)){
+                   total+=p.getPrecio();
+               }
         }
         System.out.printf("Total a pagar: %.2f", total);
     }

@@ -1,14 +1,14 @@
 package Reto1;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import Clases.Cliente;
 import Clases.Producto;
 import Clases.Tienda;
 
 public class Funciones1 {
+    public static HashMap<Tienda, List<Producto>> productosComprados;
+
     public static void mostrarTodasLasTiendas(List<Tienda> tiendas) {
         System.out.println("\n=== Lista de Tiendas ===");
         for (Tienda tienda : tiendas) {
@@ -51,10 +51,19 @@ public class Funciones1 {
         }
 
         Random random = new Random();
+        List<Producto> productos = new ArrayList<>();
+        if (productosComprados == null){
+            productosComprados = new HashMap<>();
+        }
+
         Producto productoComprado = tienda.getListaProductos().remove(random.nextInt(tienda.getListaProductos().size()));
         cliente.comprarProducto(tienda, productoComprado);
 
-        System.out.println("Ha comprado: " + productoComprado.getNombre() + " por " + productoComprado.getPrecio() + " euros.");
+        productos.add(productoComprado);
+
+        productosComprados.put(tienda, productos);
+
+        System.out.println("Ha comprado: " + productoComprado.getNombre() + " por " + Math.round(productoComprado.getPrecio()*100)/100.0 + " euros.");
 
         if (tienda.getListaProductos().size() < 5) {
             tienda.reponerProductos(5);
